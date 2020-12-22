@@ -21,6 +21,7 @@ class Orders extends Component {
                     price={+order.price} />
             ));
         }
+        console.log(this.props.orders);
         return (
             <div>
                 {orders}
