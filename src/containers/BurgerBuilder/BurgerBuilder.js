@@ -10,7 +10,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
     state = {
         purchasing: false,
     };
@@ -20,9 +20,15 @@ class BurgerBuilder extends Component {
     }
 
     purchasedHandler = () => {
-        this.setState({
-            purchasing: true
-        });
+        if (this.props.isAuth) {
+            this.setState({
+                purchasing: true
+            });
+        } else {
+            this.props.onSetAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
+
     }
 
     updatePurchasedState(updatedIngredients) {
@@ -73,6 +79,7 @@ class BurgerBuilder extends Component {
                         disabled={disabledInfo}
                         purchasable={this.updatePurchasedState(this.props.ings)}
                         ordered={this.purchasedHandler}
+                        isAuth={this.props.isAuth}
                         price={this.props.price} />
                 </Aux>
             );
@@ -103,7 +110,8 @@ const mapStateToProps = (state) => {
     return {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
+        isAuth: state.auth.token !== null
     };
 }
 
@@ -113,6 +121,7 @@ const mapDispatchToProps = (dispatch) => {
         onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
         onInitIngredients: () => dispatch(actions.initIngredients()),
         onInitPurchase: () => dispatch(actions.purchaseInit()),
+        onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
     };
 }
 

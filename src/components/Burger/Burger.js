@@ -7,7 +7,7 @@ const burger = (props) => {
     // key will be like cheese1, meat3, etc
     let transformedIngredients = Object.keys(props.ingredients).map(igKey => {
         return [...Array(props.ingredients[igKey])].map((_, i) => {
-            return <BurgerIngredient key={igKey + i} type={igKey}/>;
+            return <BurgerIngredient key={igKey + i} type={igKey} />;
         });
     }).reduce((arr, el) => {
         // This takes all of the inner arrays our of the outer array
@@ -16,9 +16,8 @@ const burger = (props) => {
         // it will be [cheese1, cheese2, meat1]
         return arr.concat(el);
     }, []);
-    console.log(transformedIngredients);
 
-    if(transformedIngredients.length === 0) {
+    if (transformedIngredients.length === 0) {
         transformedIngredients = <p>Please start adding ingredients!</p>
     }
     return (
