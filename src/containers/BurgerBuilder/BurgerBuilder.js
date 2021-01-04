@@ -20,7 +20,6 @@ export class BurgerBuilder extends Component {
     }
 
     purchasedHandler = () => {
-        console.log('test');
         if (this.props.isAuth) {
             this.setState({
                 purchasing: true
