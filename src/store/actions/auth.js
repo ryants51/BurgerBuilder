@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 
 // Action creator which just returns an action. No side effects. 
-// This means the funciton is "Pure"
+// This means the function is "Pure"
 export const authStart = () => {
     return {
         type: actionTypes.AUTH_START
