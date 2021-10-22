@@ -1,5 +1,5 @@
 import axios from '../../axios-orders';
-import { put } from 'redux-saga/effects'
+import { put } from 'redux-saga/effects';
 import * as actions from '../actions';
 
 export function* purchaseBurgerSaga(action) {

@@ -31,8 +31,10 @@ export function* watchBurgerBuilder() {
     yield takeEvery(actionTypes.INIT_INGREDIENTS, initIngredientsSaga);
 }
 
+// This is what listens for these actions from the components themselved
 export function* watchOrder() {
     // Take latest will always cancel previous calls and only perform the latest one
     yield takeLatest(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
+    // This listens for a FETCH_ORDERS action and runs the appropriate saga
     yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
 }
