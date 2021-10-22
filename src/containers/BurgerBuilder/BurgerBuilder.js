@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from '../../axios-orders';
 import Aux from '../../hoc/Auxilliary/Auxilliary';
@@ -20,14 +20,17 @@ export const BurgerBuilder = (props) => {
 
     const dispatch = useDispatch();
     const onIngredientAdded = dispatch((ingName) => dispatch(actions.addIngredient(ingName)));
-    const onInitIngredients = dispatch(() => dispatch(actions.initIngredients()));
+    const onInitIngredients = useCallback(
+      () => dispatch(actions.initIngredients()),
+      [dispatch]
+    );
     const onIngredientRemoved = dispatch((ingName) => dispatch(actions.removeIngredient(ingName)));
     const onInitPurchase = dispatch(() => dispatch(actions.purchaseInit()))
     const onSetAuthRedirectPath = dispatch((path) => dispatch(actions.setAuthRedirectPath(path)));
 
     useEffect(() => {
         onInitIngredients();
-    }, [])
+    }, [onInitIngredients])
 
     const purchasedHandler = () => {
         if (isAuth) {
