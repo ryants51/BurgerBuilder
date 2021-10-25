@@ -10,7 +10,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 
-export const BurgerBuilder = (props) => {
+export const BurgerBuilder = ({ingredients, history}) => {
     const [purchasing, setPurchasing] = useState(false);
 
     const isAuth = useSelector((state) => !state.auth.token)
@@ -37,7 +37,7 @@ export const BurgerBuilder = (props) => {
             setPurchasing(true);
         } else {
             onSetAuthRedirectPath('/checkout');
-            props.history.push('/auth');
+            history.push('/auth');
         }
 
     }
@@ -64,11 +64,11 @@ export const BurgerBuilder = (props) => {
 
     const purchaseContinueHandler = () => {
         onInitPurchase();
-        props.history.push('/checkout');
+        history.push('/checkout');
     }
 
     const disabledInfo = {
-        ...props.ings
+        ...ingredients
     };
     for (let key in disabledInfo) {
         disabledInfo[key] = disabledInfo[key] <= 0;
@@ -77,19 +77,20 @@ export const BurgerBuilder = (props) => {
     let orderSummary = null;
     let burger = error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
     
-    if (props.ings) {
+    if (ingredients) {
         burger = (
-            <Aux>
-                <Burger ingredients={props.ings} />
-                <BuildControls
-                    ingredientAdded={onIngredientAdded}
-                    ingredientRemoved={onIngredientRemoved}
-                    disabled={disabledInfo}
-                    purchasable={updatePurchasedState(ings)}
-                    ordered={purchasedHandler}
-                    isAuth={isAuth}
-                    price={price} />
-            </Aux>
+          <Aux>
+            <Burger ingredients={ingredients} />
+            <BuildControls
+              ingredientAdded={onIngredientAdded}
+              ingredientRemoved={onIngredientRemoved}
+              disabled={disabledInfo}
+              purchasable={updatePurchasedState(ings)}
+              ordered={purchasedHandler}
+              isAuth={isAuth}
+              price={price}
+            />
+          </Aux>
         );
 
         orderSummary = (

@@ -1,29 +1,23 @@
-import React, { Component } from 'react';
+import React, { memo } from 'react';
 import classes from './Modal.css'
 import Aux from '../../../hoc/Auxilliary/Auxilliary';
 import Backdrop from '../Backdrop/Backdrop';
 
-class Modal extends Component {
+const Modal = memo(({show, modalClosed, children}) => {
     // This only updates the OrderSummary when the Modal is actually showing
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
-    }
-
-    render() {
-        return (
-            <Aux>
-                <Backdrop show={this.props.show} clicked={this.props.modalClosed}/>
-                <div 
-                    className={classes.Modal}
-                    style={{
-                        transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
-                        opacity: this.props.show ? '1' : '0'
-                    }}>
-                    {this.props.children}
-                </div>
-            </Aux>
-        );
-    }
-}
+    return (
+        <Aux>
+            <Backdrop show={show} clicked={modalClosed}/>
+            <div 
+                className={classes.Modal}
+                style={{
+                    transform: show ? 'translateY(0)' : 'translateY(-100vh)',
+                    opacity: show ? '1' : '0'
+                }}>
+                {children}
+            </div>
+        </Aux>
+    );
+});
 
 export default Modal;

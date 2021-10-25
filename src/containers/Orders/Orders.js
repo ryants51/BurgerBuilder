@@ -34,4 +34,4 @@ const Orders = (props) => {
     );
 }
 
-export default (withErrorHandler(Orders, axios));
+export default withErrorHandler(Orders, axios);

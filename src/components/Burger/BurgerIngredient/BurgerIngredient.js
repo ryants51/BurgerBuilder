@@ -1,53 +1,29 @@
-import React, {Component} from 'react';
+import React from 'react';
 import classes from './BurgerIngredient.css';
 import PropTypes from 'prop-types';
 
-class BurgerIngredient extends Component {
-    render() {
-        let ingredient = null;
-
-        switch (this.props.type) {
+const BurgerIngredient = ({type}) => {
+        switch (type) {
             case ('bread-bottom'):
-                ingredient = (
-                    <div className={classes.BreadBottom}></div>
-                );
-                break;
+                return <div className={classes.BreadBottom}></div>;
             case ('bread-top'):
-                ingredient = (
+                return (
                     <div className={classes.BreadTop}>
                         <div className={classes.Seeds1}></div>
                         <div className={classes.Seeds2}></div>
                     </div>
                 );
-                break;
             case ('meat'):
-                ingredient = (
-                    <div className={classes.Meat}></div>
-                );
-                break;
+                return <div className={classes.Meat}></div>;
             case ('cheese'):
-                ingredient = (
-                    <div className={classes.Cheese}></div>
-                );
-                break;
+                return <div className={classes.Cheese}></div>;
             case ('salad'):
-                ingredient = (
-                    <div className={classes.Salad}></div>
-                );
-                break;
+                return <div className={classes.Salad}></div>;
             case ('bacon'):
-                ingredient = (
-                    <div className={classes.Bacon}></div>
-                );
-                break;
+                return <div className={classes.Bacon}></div>;
             default:
-                ingredient = null;
-                break;
+                return null;
         }
-
-        return ingredient;
-    }
-    
 };
 
 BurgerIngredient.propTypes = {
